@@ -20,7 +20,6 @@ app.use(cors({
 
 
 app.use(express.json())
-app.use('/',userRouter.router)
 app.use('/auth',authRouter.router)
 app.use('/addproducts',productRouter.router)
 app.use('/autocomplete',autocomplete.router)
