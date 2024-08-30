@@ -16,10 +16,19 @@ const cors = require('cors')
 
 
 Dbconnect() 
-app.use(cors({  
-    origin: 'https://newkartfrontend-e28nl0bx3-don-thampys-projects.vercel.app/', 
-    credentials: true
-}));
+const allowedOrigins = [
+    'https://newkartfrontend.vercel.app',
+  ];
+  
+  app.use(cors({
+    origin: function(origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+  }));
  
 
 app.use(express.json())
