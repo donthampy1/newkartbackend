@@ -5,7 +5,7 @@ const Product = require('../models/baseModel')
 
 router.get('/search', async (req,res)=>{
     const query =req.query.q
-    console.log(req.query.q)
+    console.log(req.query.q,"activating")
 
     try{
         const results = await Product.aggregate(
@@ -38,7 +38,7 @@ router.get('/search', async (req,res)=>{
           ]
         )
         res.json(results)
-        console.log("working")
+        console.log("working",results)
     } catch (err) {
         console.log(err)
         res.status(500).send('error')
