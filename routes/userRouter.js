@@ -6,3 +6,4 @@ const userController = require('../controller/userController')
 router.get('/',userController.test)
 
 exports.router = router
+ 

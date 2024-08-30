@@ -8,25 +8,32 @@ const authRouter = require('./routes/authRouter.js')
 const productRouter = require('./routes/productRouter.js')
 const autocomplete = require('./routes/autocomplete.js')
 const productsearch = require('./routes/productsearch.js')
+const getproductdata = require('./routes/getproductdata.js')
+const cartRouter = require('./routes/cartRouter.js')
+const checkoutRouter = require('./routes/checkoutRouter.js')
 const cors = require('cors')
 
 
 
 Dbconnect() 
-app.use(cors({
-    origin: 'https://frontendecommerce-seven.vercel.app/', 
+app.use(cors({  
+    origin: 'http://localhost:5173', 
     credentials: true
 }));
-
+ 
 
 app.use(express.json())
 app.use('/auth',authRouter.router)
 app.use('/addproducts',productRouter.router)
 app.use('/autocomplete',autocomplete.router)
 app.use('/productsearch',productsearch.router)
+app.use('/getproductdata',getproductdata.router)
+app.use('/cart',cartRouter.router)
+app.use('/checkout',checkoutRouter.router)
 
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000,()=>{
-    console.log('listening in port 3000')
-})
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});

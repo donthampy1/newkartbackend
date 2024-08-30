@@ -9,26 +9,33 @@ router.get('/search', async (req,res)=>{
 
     try{
         const results = await Product.aggregate(
-            [
-                {
-                  '$search': {
-                    'index': 'default2', 
-                    'autocomplete': {
-                      'query': query, 
-                      'path': 'name', 
-                      'fuzzy': {
-                        'maxEdits': 1
-                      }
-                    }
-                  }
-                }, {
-                  '$limit': 5
-                }, {
-                  '$project': {
-                    'name': 1
-                  }
+          [
+            {
+              '$search': {
+                'index': 'default2', 
+                'autocomplete': {
+                  'query': query, 
+                  'path': 'name'
                 }
-              ]
+              }
+            }, {
+              '$project': {
+                '_id': 1, 
+                'name': 1, 
+                'score': {
+                  '$meta': 'searchScore'
+                }
+              }
+            }, {
+              '$match': {
+                'score': {
+                  '$gt': 1
+                }
+              }
+            }, {
+              '$limit': 8
+            }
+          ]
         )
         res.json(results)
         console.log("working")

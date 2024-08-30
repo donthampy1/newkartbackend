@@ -17,3 +17,4 @@ const BaseProduct = mongoose.model('Product', baseProductSchema);
 
 module.exports = BaseProduct;
 
+ 
