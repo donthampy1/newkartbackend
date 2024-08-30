@@ -17,7 +17,7 @@ const cors = require('cors')
 
 Dbconnect() 
 app.use(cors({  
-    origin: 'http://localhost:5173', 
+    origin: 'https://newkartfrontend-e28nl0bx3-don-thampys-projects.vercel.app/', 
     credentials: true
 }));
  
