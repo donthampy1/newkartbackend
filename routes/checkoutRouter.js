@@ -24,8 +24,8 @@ router.post("/createcheckout",async (req,res)=>{
         payment_method_types:['card'],
         line_items:lineItems,
         mode:"payment",
-        success_url : "http://localhost:5173/",
-        cancel_url:"http://localhost:5173/"
+        success_url : "https://newkartfrontend.vercel.app",
+        cancel_url:"https://newkartfrontend.vercel.app"
     })
 
     res.json({id:session.id})
