@@ -16,7 +16,6 @@ const cors = require('cors')
 
 
 Dbconnect() 
-const cors = require('cors');
 
 // Allow all domains
 app.use(cors({
