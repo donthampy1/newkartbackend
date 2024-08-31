@@ -17,10 +17,9 @@ const cors = require('cors')
 
 Dbconnect() 
 
-// Allow all domains
 app.use(cors({
-  origin: '*', // This allows all origins
-  credentials: true // If you want to send cookies with requests
+  origin: '*', 
+  credentials: true 
 }));
 
  
