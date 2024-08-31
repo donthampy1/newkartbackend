@@ -162,4 +162,11 @@ exports.sellersignin = async (req, res) => {
         console.log(err);
         return res.status(500).json({ message: err.message });
     }
-};
+}
+
+
+
+
+exports.signout = async (req,res) => {
+    res.clearCookie('access_token').status(200).json('Signout Success')
+}

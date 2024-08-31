@@ -81,7 +81,7 @@ pricePatterns.forEach(({ pattern, operator }) => {
             console.log(queryText)
             const numbers = queryText.match(/[0-9]+/g).map(Number);
             console.log(numbers)
-
+ 
 
 
 

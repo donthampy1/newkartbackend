@@ -29,7 +29,7 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true // Allow credentials to be sent with the requests
+  credentials: true 
 }));
  
 
