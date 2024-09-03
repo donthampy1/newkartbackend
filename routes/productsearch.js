@@ -9,7 +9,6 @@ const categorySynonyms = {
     Laptop: ['laptop', 'notebook', 'ultrabook'],
     Mobile: ['smartphone', 'mobile', 'phone', 'cellphone'],
     tablet: ['tablet', 'ipad', 'tab'],
-    // Add more categories and synonyms as needed
 };
 
 
@@ -18,7 +17,9 @@ const brandSynonyms = {
     samsung: ['samsung', 'galaxy', 'note'],
     dell: ['dell', 'inspiron', 'xps'],
     asus: ['asus', 'rog', 'zenbook'],
-    // Add more brands and synonyms as needed
+    lenovo : ['Lenovo','thinkpad','yoga'],
+    hp : ['hp','HP'],
+    msi : ['msi','katana']
 };
 
 
@@ -136,11 +137,11 @@ pricePatterns.forEach(({ pattern, operator }) => {
                 query.price.$eq = priceRange.$eq;
             }
         }
-        
 
         const results = await Product.find( query
         );
         res.json( results );
+        console.log(query)
  
 
 console.log(results[0])
@@ -152,5 +153,127 @@ console.log("working now dgjgdjddj", query);
         res.status(500).send('error');
     }
 });
+
+
+
+
+
+router.get('/searchauto', async (req,res)=>{
+    const query =req.query.q
+    console.log(query,"activating")
+
+    try{
+        const results = await Product.aggregate(
+            [
+                {
+                  '$search': {
+                    'index': 'default2', 
+                    'autocomplete': {
+                      'query': query, 
+                      'path': 'name'
+                    }
+                  }
+                }, {
+                  '$project': {
+                    '_id': 1, 
+                    'brand': 1, 
+                    'category': 1, 
+                    'price': 1, 
+                    'name': 1, 
+                    'rating': 1, 
+                    'images': 1, 
+                    'score': {
+                      '$meta': 'searchScore'
+                    }
+                  }
+                }, {
+                  '$match': {
+                    'score': {
+                      '$gte': 5
+                    }
+                  }
+                }, {
+                  '$limit': 10
+                }
+              ]
+        )
+        res.json(results)
+        console.log(results)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send('error')
+    }
+ 
+})
+
+
+router.get('/filter', async (req, res) => {
+    const { minPrice , maxPrice, brand, batteryCapacity , screenSize, processor, storage, category } = req.query;
+    console.log(batteryCapacity,"this is thisnis")
+console.log(req.query,"this is from server")
+console.log(minPrice,maxPrice)
+    try {
+        let query = {};
+
+        if (category) {
+            query.category = { $in: category.split(',') };
+        }
+
+        if (brand) {
+            query.brand = { $in: brand.split(',') };
+        }
+
+        if (screenSize) {
+            query.screenSize = { $in: screenSize.split(',') };
+        }
+
+        if (processor) {
+            query.processor = { $in: processor.split(',') };
+        }
+
+        if (storage) {
+            query.storage = { $in: storage.split(',') };
+        }
+
+        if (batteryCapacity) {
+            query.batteryCapacity = { $in: batteryCapacity.split(',') };
+        }
+
+        if (minPrice && maxPrice) {
+           
+            query.price = {
+                $gte: minPrice,
+                $lte: maxPrice,
+            };
+        }
+console.log('this is query',query)
+        const results = await Product.find(query);
+
+        res.json(results);
+        //console.log(results)
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.router = router;
