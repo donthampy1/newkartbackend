@@ -9,7 +9,9 @@ const baseProductSchema = new mongoose.Schema({
   images: [{ type: String }],
   stock: { type: Number, required: true },
   category:{ type: String, required: true },
-  rating: { type: Number ,default : 0}
+  rating: { type: Number ,default : 0},
+  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: 'seller', required: true } 
+
 
 }, { discriminatorKey: 'category', timestamps: true });
 

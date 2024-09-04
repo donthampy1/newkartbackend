@@ -8,7 +8,7 @@ const nlp = require('compromise');
 const categorySynonyms = {
     Laptop: ['laptop', 'notebook', 'ultrabook'],
     Mobile: ['smartphone', 'mobile', 'phone', 'cellphone'],
-    tablet: ['tablet', 'ipad', 'tab'],
+    Tablet: ['tablet', 'ipad', 'tab'],
 };
 
 
@@ -19,7 +19,9 @@ const brandSynonyms = {
     asus: ['asus', 'rog', 'zenbook'],
     lenovo : ['Lenovo','thinkpad','yoga'],
     hp : ['hp','HP'],
-    msi : ['msi','katana']
+    msi : ['msi','katana'],
+    xiaomi : ['xiaomi','redmi'],
+    itel : ['itel']
 };
 
 
@@ -78,7 +80,7 @@ pricePatterns.forEach(({ pattern, operator }) => {
             console.log(`Matched Keyword: ${keyword}`);
             console.log("Match Result:", match.out('text'));
 
-            const queryText = doc.out('text'); // Get the entire query text
+            const queryText = doc.out('text'); 
             console.log(queryText)
             const numbers = queryText.match(/[0-9]+/g).map(Number);
             console.log(numbers)
@@ -90,14 +92,12 @@ pricePatterns.forEach(({ pattern, operator }) => {
 
 
             
-                // Handle ranges like "between X and Y" or "X to Y"
                 if (numbers.length === 2) {
                     const [lower, higher] = numbers.sort((a, b) => a - b);
             priceRange.$gte = lower;
             priceRange.$lte = higher;
                 }
              else {
-                // Handle single value cases
                 if (numbers.length === 1) {
                     const priceValue = numbers[0];
             priceRange[operator] = priceValue;
