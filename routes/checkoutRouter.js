@@ -2,13 +2,16 @@ const express = require('express')
 const router = express.Router()
 require('dotenv').config()
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const OrderDetails = require ('../models/orderDetailsModel')
 
 
 
 
 router.post("/createcheckout",async (req,res)=>{
-    const { products , total } = req.body
-    console.log(products,total)
+
+   try { 
+    const { products , total , shippingDetails , userId } = req.body
+    console.log( products , total , shippingDetails , userId)
     const lineItems = products.map((products)=>({
     price_data:{
         currency:"inr",
@@ -28,9 +31,41 @@ router.post("/createcheckout",async (req,res)=>{
         cancel_url:"https://newkartfrontend.vercel.app"
     })
 
+    const newOrderDetail = new OrderDetails({
+        userId,
+        products: products.map((product)=>({
+            productId: product.productId ,
+            quantity: product.quantity || 1,
+            productName: product.productName,
+            productThumbnail: product.productThumbnail 
+
+        })),
+
+        totalPrice : total,
+        shippingDetails: shippingDetails,
+        orderStatus: 'Pending',
+        paymentStatus: 'Pending'
+
+    })
+
+
+
+
+
+    await newOrderDetail.save()
+    console.log('orderdetails saved successfully')
+
+
+
+
     res.json({id:session.id})
 
 
+   }catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Internal Server Error' });
+
+   }
 
 
 
