@@ -42,7 +42,7 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
         const session = event.data.object;
     
         try {
-          const order = await  OrderDetails.findOne({ paymentId: session.id });
+           const order = await  OrderDetails.findOne({ paymentId: session.id });
     
           if (order) {
             order.paymentStatus = 'Completed';
