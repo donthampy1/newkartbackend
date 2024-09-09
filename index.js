@@ -14,6 +14,7 @@ const checkoutRouter = require('./routes/checkoutRouter.js')
 const sellerRouter = require('./routes/sellerRouter.js')
 const adminRouter = require('./routes/adminauthRouter.js')
 const adminpanelRouter = require('./routes/adminpanelRoutes.js')
+const webhookRouter = require('./routes/webhookRouter.js')
 const cors = require('cors')
 
 
@@ -40,6 +41,12 @@ app.use(cors({
   credentials: true 
 }));
  
+
+
+app.use('/webhook', webhookRouter.router);
+
+
+
 
 app.use(express.json())
 app.use('/auth',authRouter.router)
