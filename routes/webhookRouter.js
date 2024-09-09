@@ -55,8 +55,8 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
           console.log(user,'BHUHWBURBRVURBURBURBHRUGU')
           console.log('SBNIBEIBNINSIBNIBTUBNINIITNBRSUIBNR')
 
-          //const userId = user._id
-          //const result = await CartData.deleteOne({ userId: userId });
+          const userId = user._id
+          const result = await CartData.deleteOne({ userId: userId });
 
 
     
