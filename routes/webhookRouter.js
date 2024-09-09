@@ -50,8 +50,9 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
             console.log(`Order ${order._id} payment status updated to 'Completed'`);
           }
           const email = session.customer_details.email
+          console.log(email,'ihtihwhbuh euhIBIUBUBU')
           const user = await User.findOne({ email: email })
-          console.log(user)
+          console.log(user,'BHUHWBURBRVURBURBURBHRUGU')
           console.log('SBNIBEIBNINSIBNIBTUBNINIITNBRSUIBNR')
 
           //const userId = user._id
