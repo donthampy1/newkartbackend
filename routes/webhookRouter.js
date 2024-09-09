@@ -42,7 +42,6 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
         const session = event.data.object;
     
         try {
-          // Find the order by paymentId and update the status
           const order = await  OrderDetails.findOne({ paymentId: session.id });
     
           if (order) {
@@ -56,36 +55,18 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
           const result = await CartData.deleteOne({ userId: userId });
 
 
-
-
-
-
     
         } catch (error) {
           console.error('Error updating order status:', error);
           res.status(500).send('Server Error');
         }
       } else {
-        // Return a 200 response for any other event
         res.status(200).send({ received: true });
       }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
 });
 
 exports.router = router
