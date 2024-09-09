@@ -11,7 +11,11 @@ const productsearch = require('./routes/productsearch.js')
 const getproductdata = require('./routes/getproductdata.js')
 const cartRouter = require('./routes/cartRouter.js')
 const checkoutRouter = require('./routes/checkoutRouter.js')
+const sellerRouter = require('./routes/sellerRouter.js')
+const adminRouter = require('./routes/adminauthRouter.js')
+const adminpanelRouter = require('./routes/adminpanelRoutes.js')
 const cors = require('cors')
+
 
 
 
@@ -20,7 +24,9 @@ Dbconnect()
 
 const allowedOrigins = [
   'https://newkartfrontend.vercel.app',
-  'http://localhost:5173', 
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://newkartadmin.vercel.app',  
 ];
 
 app.use(cors({
@@ -28,8 +34,8 @@ app.use(cors({
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+      callback(new Error('Not allowed by CORS')); 
+    } 
   },
   credentials: true 
 }));
@@ -43,6 +49,11 @@ app.use('/productsearch',productsearch.router)
 app.use('/getproductdata',getproductdata.router)
 app.use('/cart',cartRouter.router)
 app.use('/checkout',checkoutRouter.router)
+app.use('/sellerproduct',sellerRouter.router)
+app.use('/adminauth',adminRouter.router)
+app.use('/adminpanelroutes',adminpanelRouter.router)
+
+
 
 
 const PORT = process.env.PORT || 3000;

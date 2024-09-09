@@ -31,20 +31,30 @@ router.post("/createcheckout",async (req,res)=>{
         cancel_url:"https://newkartfrontend.vercel.app"
     })
 
+
+
+
+
+    for (let product of products) {
     const newOrderDetail = new OrderDetails({
         userId,
-        products: products.map((product)=>({
+        products: [{
             productId: product.productId ,
             quantity: product.quantity || 1,
             productName: product.productName,
-            productThumbnail: product.productThumbnail 
+            productThumbnail: product.productThumbnail,
+            sellerId: product.sellerId,
+            productPrice: product.productPrice + 1000,
+            category: product.category
 
-        })),
+
+        }],
 
         totalPrice : total,
         shippingDetails: shippingDetails,
         orderStatus: 'Pending',
-        paymentStatus: 'Pending'
+        paymentStatus: 'Pending',
+        paymentId: session.id,
 
     })
 
@@ -53,8 +63,8 @@ router.post("/createcheckout",async (req,res)=>{
 
 
     await newOrderDetail.save()
-    console.log('orderdetails saved successfully')
-
+    console.log('orderdetails saved successfully' , product.productName)
+    }
 
 
 

@@ -3,8 +3,9 @@ const router = express.Router()
 const CartData = require('../models/cartModel') 
 
 router.post('/additems', async (req, res) => {
+  console.log('request recieved')
     const { userId, items } = req.body;
-  
+  console.log(userId,items)
     try {
     let cart = await CartData.findOne({ userId });
     console.log(userId)
@@ -19,11 +20,12 @@ router.post('/additems', async (req, res) => {
         } else {
           cart.items.push(item);
         }
-      });
+      }); 
 
       if (itemExists) {
         return res.status(200).json({ message: 'Item already in cart', cart });
       }
+      console.log(cart,"THIS IS CART")
 
       await cart.save();
     } else {

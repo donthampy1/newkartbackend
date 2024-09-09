@@ -9,7 +9,7 @@ const categorySynonyms = {
     Laptop: ['laptop', 'notebook', 'ultrabook'],
     Mobile: ['smartphone', 'mobile', 'phone', 'cellphone'],
     Tablet: ['tablet', 'ipad', 'tab'],
-};
+}; 
 
 
 const brandSynonyms = {
@@ -31,16 +31,13 @@ router.get('/search', async (req, res) => {
     console.log(q);
 
     try {
-        // Parse the query using Compromise
         const doc = nlp(q);
 
-         // Initialize an array to store detected categories
         let detectedCategories = [];
         let detectedBrands = []
         let priceRange = {};
 
 
-        // Loop through the categories and check if any synonyms match the query
         for (const [category, synonyms] of Object.entries(categorySynonyms)) {
           console.log("working now");
  
@@ -111,7 +108,6 @@ pricePatterns.forEach(({ pattern, operator }) => {
         console.log("working now", priceRange);
 
 
-        // Optional: Remove duplicates
         detectedBrands = [...new Set(detectedBrands)];
    
         detectedCategories = [...new Set(detectedCategories)];
