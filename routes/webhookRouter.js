@@ -42,7 +42,8 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
         const session = event.data.object;
     
         try {
-           const order = await  OrderDetails.findOne({ paymentId: session.id });
+            const order = await OrderDetails.findOne({ paymentId: session.id });
+            console.log(order)
     
           if (order) {
             order.paymentStatus = 'Completed';
@@ -52,10 +53,12 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
           const email = session.customer_details.email
           console.log(email,'ihtihwhbuh euhIBIUBUBU')
           const user = await User.findOne({ email: email })
+
           console.log(user,'BHUHWBURBRVURBURBURBHRUGU')
           console.log('SBNIBEIBNINSIBNIBTUBNINIITNBRSUIBNR')
 
           const userId = user._id
+          console.log(user.Id)
           const result = await CartData.deleteOne({ userId: userId });
 
 
