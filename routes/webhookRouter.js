@@ -51,8 +51,11 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
           }
           const email = session.customer_details.email
           const user = await User.findOne({ email: email })
-          const userId = user._id
-          const result = await CartData.deleteOne({ userId: userId });
+          console.log(user)
+          console.log('SBNIBEIBNINSIBNIBTUBNINIITNBRSUIBNR')
+
+          //const userId = user._id
+          //const result = await CartData.deleteOne({ userId: userId });
 
 
     
