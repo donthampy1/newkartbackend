@@ -15,6 +15,7 @@ const sellerRouter = require('./routes/sellerRouter.js')
 const adminRouter = require('./routes/adminauthRouter.js')
 const adminpanelRouter = require('./routes/adminpanelRoutes.js')
 const webhookRouter = require('./routes/webhookRouter.js')
+const orderRouter = require('./routes/orderRoutes.js')
 const cors = require('cors')
 
 
@@ -59,7 +60,7 @@ app.use('/checkout',checkoutRouter.router)
 app.use('/sellerproduct',sellerRouter.router)
 app.use('/adminauth',adminRouter.router)
 app.use('/adminpanelroutes',adminpanelRouter.router)
-
+app.use('/orders',orderRouter.router)
 
 
 
