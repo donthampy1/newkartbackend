@@ -6,9 +6,10 @@ const nlp = require('compromise');
 
 // Define categories and synonyms
 const categorySynonyms = {
-    Laptop: ['laptop', 'notebook', 'ultrabook'],
-    Mobile: ['smartphone', 'mobile', 'phone', 'cellphone'],
-    Tablet: ['tablet', 'ipad', 'tab'],
+    Laptop: ['laptop', 'notebook', 'ultrabook','laptops'],
+    Mobile: ['smartphone', 'mobile', 'phone', 'cellphone','mobiles','smartphones'],
+    Tablet: ['tablet', 'ipad', 'tab','tablets'],
+    Television:['tv','Television','display','tvs']
 }; 
 
 
@@ -204,36 +205,50 @@ router.get('/searchauto', async (req,res)=>{
 
 
 router.get('/filter', async (req, res) => {
-    const { minPrice , maxPrice, brand, batteryCapacity , screenSize, processor, storage, category } = req.query;
-    console.log(batteryCapacity,"this is thisnis")
+    const { minPrice , maxPrice, brand, batteryCapacity , screenSize, processor, storage, category, ram, technology, resolution} = req.query;
+    console.log(ram,"this is thisnis")
 console.log(req.query,"this is from server")
 console.log(minPrice,maxPrice)
     try {
         let query = {};
 
         if (category) {
-            query.category = { $in: category.split(',') };
+            query.category = { $in: category.split(',') }
         }
 
         if (brand) {
-            query.brand = { $in: brand.split(',') };
+            query.brand = { $in: brand.split(',') }
         }
 
         if (screenSize) {
-            query.screenSize = { $in: screenSize.split(',') };
+            query.screenSize = { $in: screenSize.split(',') }
         }
 
         if (processor) {
-            query.processor = { $in: processor.split(',') };
+            query.processor = { $in: processor.split(',') }
         }
 
         if (storage) {
-            query.storage = { $in: storage.split(',') };
+            query.storage = { $in: storage.split(',') }
         }
 
         if (batteryCapacity) {
-            query.batteryCapacity = { $in: batteryCapacity.split(',') };
+            query.batteryCapacity = { $in: batteryCapacity.split(',') }
         }
+
+        if (ram) {
+            query.ram = { $in: ram.split(',') }
+        }
+
+        if (resolution) {
+            query.resolution = { $in: resolution.split(',') }
+        }
+
+        if (technology) {
+            query.technology = { $in: technology.split(',') }
+        }
+
+
 
         if (minPrice && maxPrice) {
            
