@@ -16,6 +16,7 @@ const adminRouter = require('./routes/adminauthRouter.js')
 const adminpanelRouter = require('./routes/adminpanelRoutes.js')
 const webhookRouter = require('./routes/webhookRouter.js')
 const orderRouter = require('./routes/orderRoutes.js')
+const analyticsRouter = require('./routes/analyticsRouter.js')
 const cors = require('cors')
 
 
@@ -61,8 +62,10 @@ app.use('/sellerproduct',sellerRouter.router)
 app.use('/adminauth',adminRouter.router)
 app.use('/adminpanelroutes',adminpanelRouter.router)
 app.use('/orders',orderRouter.router)
-
-
+app.use('/analytics',analyticsRouter.router)
+app.get('/initialize', (req, res) => {
+  res.status(200).json({ message: 'initialized'})
+})
 
 const PORT = process.env.PORT || 3000;
 
